@@ -7,7 +7,7 @@ import { ContactList } from '../ContactList/ContactList';
 import { Filter } from '../Filter/Filter';
 import { Layout } from '../Layout';
 import { useDispatch, useSelector } from 'react-redux';
-import { addContact, deleteContact, getContacts, filterContact} from 'redux/contactsSlice';
+import { deleteContact, getContacts, filterContact} from 'redux/contactsSlice';
 import { getFilterValue, setFilter } from 'redux/filterSlice';
 
 // const LS_KEY = 'contacts';
@@ -42,24 +42,24 @@ export default function App() {
   //   localStorage.setItem(LS_KEY, JSON.stringify(contacts));
   // }, [contacts]);
 
-  function formSubmitHandle(name, number) {
-    const isDuplicateName = contacts.some(
-      contact => contact.name.toLowerCase() === name.toLowerCase()
-    );
+  // function formSubmitHandle(name, number) {
+  //   const isDuplicateName = contacts.some(
+  //     contact => contact.name.toLowerCase() === name.toLowerCase()
+  //   );
 
-    if (isDuplicateName) {
-      alert(`${name} is already in contacts`);
-    } else {
-      // const contact = {
-      //   id: nanoid(),
-      //   name: name,
-      //   number: number,
-      // };
+  //   if (isDuplicateName) {
+  //     alert(`${name} is already in contacts`);
+  //   } else {
+  //     // const contact = {
+  //     //   id: nanoid(),
+  //     //   name: name,
+  //     //   number: number,
+  //     // };
 
-      // dispatch(prevStateContacts => [contact, ...prevStateContacts]);
-      dispatch(addContact(name, number));
-    }
-  }
+  //     // dispatch(prevStateContacts => [contact, ...prevStateContacts]);
+  //     dispatch(addContact(name, number));
+  //   }
+  // }
 
   const changeFilter = evt => {
     // return setFilter(evt.currentTarget.value);
@@ -88,7 +88,7 @@ export default function App() {
     <Layout>
       <GlobalStyle />
       <Title>Phonebook</Title>
-      <ContactForm onSubmit={formSubmitHandle} />
+      <ContactForm />
       <Title>Contacts</Title>
       <Filter value={filter} onChange={changeFilter} />
       <ContactList

@@ -16,7 +16,14 @@ const contactSlice = createSlice({
     addContact: {
       reducer(state, action) {
         const { name, number } = action.payload;
-        state.push({ id: nanoid(), name, number });
+        const isDuplicateName = state.some(
+          contact => contact.name.toLowerCase() === name.toLowerCase()
+        );
+        if (isDuplicateName) {
+          alert(`${name} is already in contacts`);
+        } else {
+          state.push({ id: nanoid(), name, number });
+        }
       },
       prepare(name, number) {
         return {

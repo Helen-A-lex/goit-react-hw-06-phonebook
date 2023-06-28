@@ -9,7 +9,7 @@ import { useDispatch,useSelector} from 'react-redux';
 // import { setFilter } from 'redux/filterSlice';
 import { addContact } from 'redux/contactsSlice';
 
-export default function ContactForm({ onSubmit }) {
+export default function ContactForm() {
   // const [name, setName] = useState('');
   // const [number, setNumber] = useState('');
   const  name  = useSelector((state) =>  state.contact.name );
@@ -33,8 +33,8 @@ export default function ContactForm({ onSubmit }) {
   const handleSubmit = evt => {
     evt.preventDefault();
     const form = evt.currentTarget;
-    onSubmit(name, number);
-    
+    // onSubmit(name, number);
+    dispatch(addContact(name, number));
     // setName('');
     // setNumber('');
     form.reset();
