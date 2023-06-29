@@ -49,8 +49,9 @@ const contactSlice = createSlice({
       return state.filter(contact => contact.id !== action.payload);
     },
     filterContact(state, action) {
+      const filter = action.payload.toLowerCase();
       return state.filter(contact =>
-        contact.name.toLowerCase().includes(action.payload)
+        contact.name.toLowerCase().includes(filter)
       );
     },
   },
