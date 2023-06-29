@@ -5,13 +5,13 @@ import {
   Input,
   ButtonAddDeleteContact,
 } from './ContactForm.styled';
-import { useDispatch } from 'react-redux';
-import { addContact } from 'redux/contactsSlice';
 
-export default function ContactForm() {
+
+
+export default function ContactForm({onSubmit}) {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
-  const dispatch = useDispatch();
+  
   
   const handleChange = evt => {
     const { name, value } = evt.target;
@@ -30,7 +30,7 @@ export default function ContactForm() {
   const handleSubmit = evt => {
     evt.preventDefault();
 
-    dispatch(addContact({ name, number }));
+    onSubmit(name,number)
     setName('');
     setNumber('');
   };
