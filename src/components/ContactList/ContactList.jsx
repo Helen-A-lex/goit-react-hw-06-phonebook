@@ -2,8 +2,11 @@ import { ContactListItem } from 'components/ContactListItem/ContactListItem';
 // import PropTypes from 'prop-types';
 import { ContactsList } from './ContactList.styled';
 export const ContactList = ({ filteredContacts, onDelete }) => {
-  console.log(filteredContacts);
-  if (!filteredContacts || filteredContacts.length === 0) {
+  
+  // if (!filteredContacts || filteredContacts.length === 0) {
+  //   return <div>No contacts found</div>;
+  // }
+  if (!filteredContacts || !Array.isArray(filteredContacts) || filteredContacts.length === 0) {
     return <div>No contacts found</div>;
   }
   return (

@@ -1,29 +1,26 @@
-// import { useState } from 'react';
+import { useState } from 'react';
 import {
   Form,
   Label,
   Input,
   ButtonAddDeleteContact,
 } from './ContactForm.styled';
-import { useDispatch,useSelector} from 'react-redux';
-// import { setFilter } from 'redux/filterSlice';
+import { useDispatch } from 'react-redux';
 import { addContact } from 'redux/contactsSlice';
 
 export default function ContactForm() {
-  // const [name, setName] = useState('');
-  // const [number, setNumber] = useState('');
-  const  name  = useSelector((state) =>  state.contact.name );
-  const number  = useSelector((state) =>  state.contact.number )
+  const [name, setName] = useState('');
+  const [number, setNumber] = useState('');
   const dispatch = useDispatch();
-
+  
   const handleChange = evt => {
     const { name, value } = evt.target;
     switch (name) {
       case 'name':
-        dispatch(addContact({ name: value }));
+        setName(value);
         break;
       case 'number':
-        dispatch(addContact({ number: value }));
+        setNumber(value);
         break;
       default:
         return;
@@ -32,12 +29,10 @@ export default function ContactForm() {
 
   const handleSubmit = evt => {
     evt.preventDefault();
-    const form = evt.currentTarget;
-    // onSubmit(name, number);
-    dispatch(addContact(name, number));
-    // setName('');
-    // setNumber('');
-    form.reset();
+
+    dispatch(addContact({ name, number }));
+    setName('');
+    setNumber('');
   };
 
   return (
