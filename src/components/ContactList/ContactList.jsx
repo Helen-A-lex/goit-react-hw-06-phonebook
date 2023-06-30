@@ -1,33 +1,37 @@
 import { ContactListItem } from 'components/ContactListItem/ContactListItem';
-// import PropTypes from 'prop-types';
 import { ContactsList } from './ContactList.styled';
-export const ContactList = ({ filteredContacts, onDelete }) => {
+
+import { getFilterValue } from '../../redux/filterSlice';
+import { getContacts } from '../../redux/contactsSlice';
+import { useSelector } from 'react-redux';
+
+const getFilteredContacts = (filter, contacts) => {
+  // const normalizedFilter = filter.toLowerCase();
+  // console.log(normalizedFilter);
+  if (filter ) {
+    return contacts.filter(contact =>
+      contact.name.toLowerCase().includes(filter.toLowerCase())
+    );
+  } else {
+    return contacts;
+  }
+};
+
+export const ContactList = () => {
+  const contacts = useSelector(getContacts);
+  const filter = useSelector(getFilterValue);
   
-  // if (!filteredContacts || filteredContacts.length === 0) {
-  //   return <div>No contacts found</div>;
-  // }
-  if (!filteredContacts || !Array.isArray(filteredContacts) || filteredContacts.length === 0) {
+  
+  const filteredContacts = getFilteredContacts(filter, contacts);
+
+  if (!filteredContacts || filteredContacts.length === 0) {
     return <div>No contacts found</div>;
   }
   return (
     <ContactsList>
       {filteredContacts.map(contact => (
-        <ContactListItem
-          key={contact.id}
-          contact={contact}
-          onDelete={onDelete}
-        />
+        <ContactListItem key={contact.id} contact={contact} />
       ))}
     </ContactsList>
   );
 };
-// ContactList.propTypes = {
-//   filteredContacts: PropTypes.arrayOf(
-//     PropTypes.shape({
-//       id: PropTypes.string.isRequired,
-//       name: PropTypes.string.isRequired,
-//       number: PropTypes.string.isRequired,
-//     })
-//   ).isRequired,
-//   onDelete: PropTypes.func.isRequired,
-// };

@@ -6,13 +6,16 @@ import {
   ButtonAddDeleteContact,
 } from './ContactForm.styled';
 
+import { useDispatch, useSelector } from 'react-redux';
+import { getContacts, addContact } from '../../redux/contactsSlice';
 
-
-export default function ContactForm({onSubmit}) {
+export default function ContactForm() {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
-  
-  
+
+  const dispatch = useDispatch();
+  const contacts = useSelector(getContacts);
+
   const handleChange = evt => {
     const { name, value } = evt.target;
     switch (name) {
@@ -29,8 +32,16 @@ export default function ContactForm({onSubmit}) {
 
   const handleSubmit = evt => {
     evt.preventDefault();
+    const isDuplicateName = contacts.find(
+      contact => contact.name.toLowerCase() === name.toLowerCase()
+    );
 
-    onSubmit(name,number)
+    if (isDuplicateName) {
+      alert(`${name} is already in contacts`);
+      return;
+    }
+    dispatch(addContact(name, number));
+
     setName('');
     setNumber('');
   };
