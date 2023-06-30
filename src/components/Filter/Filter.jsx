@@ -1,6 +1,5 @@
-
 import { Label, Input } from 'components/ContactForm/ContactForm.styled';
-import { getFilterValue, setFilter } from "../../redux/filterSlice";
+import { getFilterValue, setFilter } from '../../redux/filterSlice';
 import { useDispatch, useSelector } from 'react-redux';
 
 export const Filter = () => {
@@ -8,7 +7,7 @@ export const Filter = () => {
   const filter = useSelector(getFilterValue);
 
   const changeFilter = evt => {
-    return dispatch(setFilter(evt.currentTarget.value));
+    return dispatch(setFilter(evt.target.value));
   };
 
   return (

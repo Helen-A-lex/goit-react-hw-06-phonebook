@@ -5,24 +5,23 @@ import { getFilterValue } from '../../redux/filterSlice';
 import { getContacts } from '../../redux/contactsSlice';
 import { useSelector } from 'react-redux';
 
-const getFilteredContacts = (filter, contacts) => {
-  // const normalizedFilter = filter.toLowerCase();
-  // console.log(normalizedFilter);
-  if (filter ) {
-    return contacts.filter(contact =>
-      contact.name.toLowerCase().includes(filter.toLowerCase())
-    );
-  } else {
-    return contacts;
-  }
-};
-
 export const ContactList = () => {
   const contacts = useSelector(getContacts);
   const filter = useSelector(getFilterValue);
-  
-  
-  const filteredContacts = getFilteredContacts(filter, contacts);
+
+  const getFilteredContacts = (contacts, filter) => {
+    // const normalizedFilter = filter.toLowerCase();
+    // console.log(normalizedFilter);
+    if (filter) {
+      return contacts.filter(contact =>
+        contact.name.toLowerCase().includes(filter.toLowerCase())
+      );
+    } else {
+      return contacts;
+    }
+  };
+
+  const filteredContacts = getFilteredContacts(contacts, filter);
 
   if (!filteredContacts || filteredContacts.length === 0) {
     return <div>No contacts found</div>;

@@ -23,4 +23,3 @@ export const filterReducer = filterSlice.reducer;
 export const getFilterValue = state => {
   return state.filter.filterValue;
 };
-console.log(getFilterValue);
